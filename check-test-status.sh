@@ -9,7 +9,7 @@ dir_path="/sys/class/gpio/gpio${pin}/direction"
 val_path="/sys/class/gpio/gpio${pin}/value"
 
 if [ -z "$auth" ] || [ -z "$test_id" ]; then
-    echo "Usage: $- <user:pass> <testid>"
+    echo "Usage: $0 <user:pass> <testid>"
     exit 1
 fi
 
