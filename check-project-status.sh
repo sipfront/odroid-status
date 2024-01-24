@@ -42,13 +42,13 @@ while [ 1 ]; do
     has_running=$(cat "$tmpfile" | jq 'any(.tests[]; .run.status == "running")' 2>/dev/null)
     has_failed=$(cat "$tmpfile" | jq 'any(.tests[]; .run.status == "failed")' 2>/dev/null)
     if [ "$has_running" = "true" ]; then
-        echo "has running..."
+        sf_log "has running..."
         sf_blink 0.2 0.8
     elif [ "$has_failed" = "true" ]; then
-        echo "has failed..."
+        sf_log "has failed..."
         sf_output_on
     else
-        echo "no running or failed..."
+        sf_log "no running or failed..."
         sf_output_off
     fi
     sleep "$interval"

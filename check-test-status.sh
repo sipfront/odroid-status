@@ -43,13 +43,13 @@ while [ 1 ]; do
     curl --user "$auth" -H 'Accept: application/json' "$url" --output "$tmpfile" 2>/dev/null
     status=$(cat "$tmpfile" | jq -r .run.status)
     if [ "$status" = "running" ]; then
-        echo "running..."
+        sf_log "running..."
         sf_blink 0.2 0.8
     elif [ "$status" = "passed" ]; then
-        echo "passed..."
+        sf_log "passed..."
         sf_output_off 
     elif [ "$status" = "failed" ]; then
-        echo "failed..."
+        sf_log "failed..."
         sf_output_on
     fi
     sleep "$interval"

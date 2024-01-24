@@ -5,6 +5,11 @@ sf_dir_path=""
 
 sf_blink_pid=""
 
+sf_log() {
+    msg="$@"
+    echo $(date)":" "$msg"
+}
+
 sf_shutdown() {
     echo "shutting down"
     sf_cancel_blink
