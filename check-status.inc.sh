@@ -38,9 +38,9 @@ sf_output_blink() {
     interval_off=$2
 
     while true; do
-        sf_output_on
+        echo 1 > "$sf_val_path"
         sleep "$interval_on"
-        sf_output_off
+        echo 1 > "$sf_val_path"
         sleep "$interval_off"
     done
 }
