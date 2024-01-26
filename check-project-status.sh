@@ -6,6 +6,7 @@ if ! [ -r "$inc" ]; then
             exit 1
 fi
 . "$inc"
+curl=/usr/bin/curl
 
 if [ -z "$SF_API_KEY" ] || [ -z "$SF_API_SECRET" ]; then
     echo "Both SF_API_KEY and SF_API_SECRET must be set!"
@@ -48,7 +49,7 @@ while [ 1 ]; do
     has_failed=$(cat "$tmpfile" | jq 'any(.tests[]; .run.status == "failed")' 2>/dev/null)
     if [ "$has_running" = "true" ]; then
         sf_log "has running..."
-        sf_blink 0.2 0.8
+        sf_blink 0.5 0.5
     elif [ "$has_failed" = "true" ]; then
         sf_log "has failed..."
         sf_output_on

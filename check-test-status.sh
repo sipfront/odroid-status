@@ -6,6 +6,7 @@ if ! [ -r "$inc" ]; then
     exit 1
 fi
 . "$inc"
+curl=/usr/bin/curl
 
 if [ -z "$SF_API_KEY" ] || [ -z "$SF_API_SECRET" ]; then
     echo "Both SF_API_KEY and SF_API_SECRET must be set!"
@@ -45,11 +46,11 @@ sf_init
 while [ 1 ]; do
     interval=5;
 
-    curl --user "$auth" -H 'Accept: application/json' "$url" --output "$tmpfile" 2>/dev/null
+    $curl --user "$auth" -H 'Accept: application/json' "$url" --output "$tmpfile" 2>/dev/null
     status=$(cat "$tmpfile" | jq -r .run.status)
     if [ "$status" = "running" ]; then
         sf_log "running..."
-        sf_blink 0.2 0.8
+        sf_blink 0.5 0.5
     elif [ "$status" = "passed" ]; then
         sf_log "passed..."
         sf_output_off 

@@ -63,4 +63,15 @@ sf_init() {
     fi
     echo out > "$sf_dir_path"
     sf_output_off
+
+
+    # blink sequence to show if all works
+    for i in $(seq 1 5); do
+        sf_output_on
+        sleep 0.1
+        sf_output_off
+        sleep 0.1
+    done
+
+    sf_output_off
 }
