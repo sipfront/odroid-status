@@ -1,0 +1,10 @@
+[Unit]
+Description=Check Sipfront test status
+
+[Service]
+Type=simple
+Restart=always
+ExecStart=/usr/local/odroid-status/check-test-status.sh
+
+[Install]
+WantedBy=multi-user.target

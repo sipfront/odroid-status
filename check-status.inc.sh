@@ -2,6 +2,7 @@
 sf_val_path=""
 sf_dir_path=""
 
+. $(dirname "$0")/etc/config.inc
 
 sf_blink_pid=""
 

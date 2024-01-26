@@ -7,18 +7,23 @@ if ! [ -r "$inc" ]; then
 fi
 . "$inc"
 
+if [ -z "$SF_API_KEY" ] || [ -z "$SF_API_SECRET" ]; then
+    echo "Both SF_API_KEY and SF_API_SECRET must be set!"
+    exit 1
+fi
+auth="$SF_API_KEY:$SF_API_SECRET"
+
+if [ -z "$SF_PROJECT_ID" ]; then
+    echo "SF_PROJECT_ID must be set!"
+    exit 1
+fi
+project_id="$SF_PROJECT_ID"
+
 pin=481 # GPIOX.5 / pin 7 (4th on row 1)
-auth=$1
-project_id=$2
-env=${3:-prod}
+env=${SF_ENV:-prod}
 
 sf_dir_path="/sys/class/gpio/gpio${pin}/direction"
 sf_val_path="/sys/class/gpio/gpio${pin}/value"
-
-if [ -z "$auth" ] || [ -z "$project_id" ]; then
-    echo "Usage: $0 <user:pass> <projectid>"
-    exit 1
-fi
 
 if [ "$env" = "prod" ]; then
     base="app.sipfront.com"
