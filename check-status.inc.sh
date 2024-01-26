@@ -48,7 +48,7 @@ sf_output_blink() {
 sf_blink() {
     interval_on=$1
     interval_off=$2
-    if [ "$blink_pid" = "" ]; then
+    if [ "$sf_blink_pid" = "" ]; then
         sf_output_blink "$1" "$2" &
         sf_blink_pid=$!
     fi    
