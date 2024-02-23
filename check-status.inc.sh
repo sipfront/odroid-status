@@ -55,16 +55,12 @@ sf_blink() {
 }
 
 sf_init() {
-    if [ -e "$sf_dir_path" ]; then
-       echo "gpio pin $pin already exported..."
-    else
-       echo "exporting gpio pin $pin..."
-        echo $pin > /sys/class/gpio/export
-    fi
+    echo "exporting gpio pin $pin..."
+    echo $pin > /sys/class/gpio/export
     echo out > "$sf_dir_path"
     sf_output_off
 
-
+    echo "test gpio..."
     # blink sequence to show if all works
     for i in $(seq 1 5); do
         sf_output_on

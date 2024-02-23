@@ -20,7 +20,7 @@ if [ -z "$SF_TEST_ID" ]; then
 fi
 test_id="$SF_TEST_ID"
 
-pin=481 # GPIOX.5 / pin 7 (4th on row 1)
+pin=403 # pin 7 (4th on row 1)
 env=${SF_ENV:-prod}
 
 sf_dir_path="/sys/class/gpio/gpio${pin}/direction"
@@ -47,6 +47,7 @@ while [ 1 ]; do
     interval=5;
 
     $curl --user "$auth" -H 'Accept: application/json' "$url" --output "$tmpfile" 2>/dev/null
+    #cat $tmpfile | jq ; echo
     status=$(cat "$tmpfile" | jq -r .run.status)
     if [ "$status" = "running" ]; then
         sf_log "running..."

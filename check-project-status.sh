@@ -20,7 +20,7 @@ if [ -z "$SF_PROJECT_ID" ]; then
 fi
 project_id="$SF_PROJECT_ID"
 
-pin=481 # GPIOX.5 / pin 7 (4th on row 1)
+pin=403 # pin 7 (4th on row 1)
 env=${SF_ENV:-prod}
 
 sf_dir_path="/sys/class/gpio/gpio${pin}/direction"
@@ -41,10 +41,13 @@ tmpfile="/tmp/out-$$.json"
 # handle SIGINT
 trap "sf_shutdown" 2
 
+sf_init
+
 while [ 1 ]; do
     interval=5;
     
     curl --user "$auth" -H 'Accept: application/json' "$url" --output "$tmpfile" 2>/dev/null
+    #cat $tmpfile | jq ; echo
     has_running=$(cat "$tmpfile" | jq 'any(.tests[]; .run.status == "running")' 2>/dev/null)
     has_failed=$(cat "$tmpfile" | jq 'any(.tests[]; .run.status == "failed")' 2>/dev/null)
     if [ "$has_running" = "true" ]; then
